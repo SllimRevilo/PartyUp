@@ -25,6 +25,18 @@ const routes: Routes = [
   {
     path: 'add-event',
     loadChildren: () => import('./add-event/add-event.module').then( m => m.AddEventPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'community-page',
+    loadChildren: () => import('./community-page/community-page.module').then( m => m.CommunityPagePageModule)
+  },
+  {
+    path: 'community-details',
+    loadChildren: () => import('./community-details/community-details.module').then( m => m.CommunityDetailsPageModule)
   }
 ];
 @NgModule({
