@@ -1,0 +1,7 @@
+{
+  "name": "PartyUp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
