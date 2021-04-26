@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>sign up</ion-title>
+    <ion-title>Sign Up</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content scrollY="false" fullscreen="true">
+  <img src="./assets/party-hat.png">
 
-</ion-content>
+  <div class="center">
+    <ion-item>
+      <ion-label color="primary" position="stacked">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="user.email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="stacked">Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.password" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="stacked">Confirm Password</ion-label>
+      <ion-input type="password" [(ngModel)]="user.passwordConfirm" required></ion-input>
+    </ion-item>
+
+      <ion-button class="submit-btn" expand="block" type="submit" (click)="signUp(user.email,user.password,user.passwordConfirm)" >Login</ion-button>
+  </div>
+
+  
+  
+  </ion-content>
