@@ -9,18 +9,18 @@
 
   <div class="center">
     <ion-item>
-      <ion-label color="primary" position="stacked">Email</ion-label>
+      <ion-label color="primary" position="stacked">email</ion-label>
       <ion-input type="text" [(ngModel)]="user.email" required></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label color="primary" position="stacked">Password</ion-label>
+      <ion-label color="primary" position="stacked">password</ion-label>
       <ion-input type="password" [(ngModel)]="user.password" required></ion-input>
     </ion-item>
 
       <ion-button class="submit-btn" expand="block" type="submit" (click)="login(user.email,user.password)" >Login</ion-button>
       <div class="or">or</div>
 
-      <ion-button class="submit-btn" expand="block" type="submit" (click)="signUp()" >Sign Up</ion-button>
+      <ion-button class="submit-btn" expand="block" type="submit" (click)="login(user.email,user.password)" >Sign Up</ion-button>
   </div>
 
   

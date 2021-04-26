@@ -20,9 +20,4 @@ export class LoginPage implements OnInit {
     this.router.navigate(["home"]);
   }
 
-  signUp()
-  {
-    this.router.navigate(["sign-up"]);
-  }
-
 }

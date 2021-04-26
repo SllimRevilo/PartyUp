@@ -4,7 +4,7 @@
     margin-right: auto;
     width: 100%;
     position: absolute;
-    top: 45%;
+    bottom: 0px;
 }
 
 img {
@@ -20,6 +20,8 @@ img {
 ion-item {
     --padding-start: 20px;
     --padding-end:20px;
+
+    
    }
 
 .submit-btn {

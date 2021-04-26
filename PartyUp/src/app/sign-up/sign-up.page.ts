@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,14 +7,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class SignUpPage implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor() { }
 
-  user= {email:"username@gmail.com", password:"password", passwordConfirm:"password"}
   ngOnInit() {
   }
 
-  signUp(email: string, password: string, passwordConfirm)
-  {
-    this.router.navigate(["home"]);
-  }
 }
