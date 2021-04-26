@@ -1,0 +1,41 @@
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    position: absolute;
+    top: 45%;
+}
+
+img {
+    display: block;
+    width: 150px;
+    height: auto;
+    margin-top: 15%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+ion-item {
+    --padding-start: 20px;
+    --padding-end:20px;
+   }
+
+.submit-btn {
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    --border-color: white;
+    --border-radius: 5px;
+    --border-style: solid;
+    margin-top:10%;
+    margin-bottom:10%;
+}
+
+.or {
+    display: block;
+
+    margin-left: 47%;
+    margin-right: 47%;
+}
