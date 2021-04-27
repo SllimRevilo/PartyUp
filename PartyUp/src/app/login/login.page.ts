@@ -56,7 +56,8 @@ export class LoginPage implements OnInit {
             });
             //this.router.navigate(["/product-list"])
             //this.router.navigate(["/"])
-            this.router.navigateByUrl('/home'); //might need to use navigateByURL('/') workaround for speed
+            //this.router.navigateByUrl('/home'); //might need to use navigateByURL('/') workaround for speed
+            this.router.navigate(["tabs/tab1"]);
     })
     .catch(error => {
       console.log(error)
