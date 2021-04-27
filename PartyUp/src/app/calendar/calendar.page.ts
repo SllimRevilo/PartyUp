@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { CalendarComponent } from 'ionic2-calendar';
 import { MonthViewComponent } from 'ionic2-calendar/monthview';
 
 @Component({
@@ -8,9 +9,19 @@ import { MonthViewComponent } from 'ionic2-calendar/monthview';
 })
 export class CalendarPage implements OnInit {
 
-  constructor() { }
+  
+  event = {
+    title: '',
+    description: '',
+    startTime: '',
+    endTime: '',
+    allDay: false
+  }
+
+  minDate = new Date().toISOString();
 
   eventSource = [];
+
   calendar =
   {
     mode:'month',
@@ -20,10 +31,32 @@ export class CalendarPage implements OnInit {
 
   viewTitle = 'Calendar'
 
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
   onEventSelected()
   {
 
   }
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  resetEvent()
+  {
+    this.event = {
+      title: '',
+      description: '',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false
+    };
+  }
+
+  addEvent()
+  {
+    
+  }
+
 
  
 
@@ -37,7 +70,5 @@ export class CalendarPage implements OnInit {
 
   }
 
-  ngOnInit() {
-  }
 
 }
