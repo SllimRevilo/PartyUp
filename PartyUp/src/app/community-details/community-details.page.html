@@ -25,7 +25,7 @@
     </h1>
     <ion-item>
       <ion-label>Icons</ion-label>
-      <ion-select [(ngModel)]="this.pic" multiple="false" cancelText="Nah" okText="Okay!">
+      <ion-select [(ngModel)]="this.pic" multiple="false" cancelText="Cancel" okText="Confirm">
         <ion-select-option value="star">Star</ion-select-option>
         <ion-select-option value="sword">Sword</ion-select-option>
         <ion-select-option value="shield">Shield</ion-select-option>
@@ -37,10 +37,9 @@
     <h1>
       Group Description:
     </h1>
-    <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >Manage Members</ion-button>
     <ion-item lines="none">
-      <ion-label>Private Group</ion-label>
-      <ion-toggle [(ngModel)]="isPrivate" class="toggle"></ion-toggle>
+      <ion-textarea [(ngModel)]="this.desription" maxlength="150" rows="6" cols="20" placeholder="placeholder text is here lul (150 characters max)"></ion-textarea>
     </ion-item>
   </div>
+  <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >test</ion-button>
 </ion-content>

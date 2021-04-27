@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommunityDetailsPage implements OnInit {
 
-  pic;
+  private pic:string="";
+  private desription: string ="";
   constructor() { }
 
   ngOnInit() {
@@ -17,5 +18,6 @@ export class CommunityDetailsPage implements OnInit {
   {
     console.log("lul test");
     console.log(this.pic);
+    console.log(this.desription);
   }
 }
