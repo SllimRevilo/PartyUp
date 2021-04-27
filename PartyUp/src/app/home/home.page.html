@@ -14,7 +14,7 @@
     Your Communities:
   </h1>
   <ion-list>
-    <ion-item *ngFor="let community of (communities | async)">
+    <ion-item *ngFor="let community of (communities | async)" (click)="viewCommunity(community)">
       <ion-label>{{community.name}}</ion-label>
     </ion-item>
   </ion-list>
