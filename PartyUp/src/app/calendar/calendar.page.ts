@@ -10,13 +10,16 @@ export class CalendarPage implements OnInit {
 
   constructor() { }
 
-  eventSource =[];
+  eventSource = [];
   calendar =
   {
     mode:'month',
     currentDate: new Date()
 
   }
+
+  viewTitle = 'Calendar'
+
   onEventSelected()
   {
 
