@@ -5,7 +5,7 @@ import { CommunityService } from '../community.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { Router,ActivatedRoute } from '@angular/router';
-import { FirebaseService } from '../services/firebase.service';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +30,11 @@ export class HomePage implements OnInit {
 
   openCreateCommunityPage(){
     this.router.navigate(["/add-comunity"]);
+  }
+  
+  test()
+  {
+    this.router.navigate(["community-details"]);
   }
 
 }
