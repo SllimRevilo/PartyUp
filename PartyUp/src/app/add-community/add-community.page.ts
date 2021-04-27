@@ -16,10 +16,6 @@ export class AddCommunityPage implements OnInit {
   add_community_form: FormGroup;
   community = {name:"",description:"", pic:""}
 
-  private description: string ="";
-  private pic: string ="";
-  private name: string ="";
-
   constructor(private router: Router,
     public formBuilder: FormBuilder,
     public fbService: FirebaseService,
@@ -35,7 +31,7 @@ export class AddCommunityPage implements OnInit {
 
   createCommunity(value){
     console.log(value.name)
-    this.communityService.createCommunity(value.name,value.description,this.fbService.getUserID())
+    this.communityService.createCommunity(value.name,value.description,value.pic,this.fbService.getUserID())
     this.add_community_form.reset()
     this.goBack();
   }

@@ -9,13 +9,14 @@ export class CommunityService {
 
   constructor(public firebase: AngularFirestore) { }
 
-  createCommunity(title,description,userID) {
+  createCommunity(title,description,aPic, userID) {
     let randomID = Math.random().toString(36).substr(2,5);
     var db=this.firebase;
     db.collection("communities").add({
       name: title,
       description: description,
       cid: randomID,
+      pic: aPic,
       memberIDList: [userID],
       modIDList: [userID],
       ownerIDList: [userID]
