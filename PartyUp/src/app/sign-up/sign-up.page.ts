@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
 import {ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-sign-up',
@@ -7,15 +10,42 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./sign-up.page.scss'],
 })
 export class SignUpPage implements OnInit {
+  user= {email:"", password:"",type:""};
 
-  constructor(private router:Router) { }
+constructor(public afAuth: AngularFireAuth,private router:Router) { }
 
-  user= {email:"username@gmail.com", password:"password", passwordConfirm:"password"}
-  ngOnInit() {
-  }
+ngOnInit() {
+}
+  signUpWithEmail(email: string, password: string) {
+  // Promise<firebase.auth.UserCredential>
+  console.log(email,password);
+  //you need to activate the authentication (password email) service in firbase project
 
-  signUp(email: string, password: string, passwordConfirm)
-  {
-    this.router.navigate(["home"]);
+  this.afAuth.createUserWithEmailAndPassword(email, password).then(user => {
+    // navigate to user profile
+    console.log(user.user.email, user.user.uid);
+
+    var db = firebase.firestore();
+    db.collection("users").add({
+                'uid':user.user.uid,
+                //'usertype': this.user.type
+              
+          })
+          .then(function(docRef) {
+              console.log("usetype written with ID: ", docRef.id);
+
+              //update this products arrays
+          })
+          .catch(function(error) {
+              console.error("Error adding document: ", error);
+          });
+
+  })
+  .catch(error => {
+    console.log(error)
+  });;
+
+
+    this.router.navigateByUrl('/');
   }
 }
