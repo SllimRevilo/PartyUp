@@ -17,24 +17,44 @@ export class FirebaseService {
   uid='';
 
   constructor(private afs: AngularFirestore) {
-    this.communityCollection = this.afs.collection<Community>('communities');
-    // this.itemCollection = this.afs.collection<Note>('notes',ref => ref.where('uid', '==', 'large'));
+    // this.communityCollection = this.afs.collection<Community>('communities');
+
+    // this.communities = this.communityCollection.snapshotChanges().pipe(
+    //     map(actions => {
+    //       return actions.map(a => {
+    //         const data = a.payload.doc.data();
+    //         // console.log(data)
+    //         const id = a.payload.doc.id;
+    //         // console.log("run after adding new node? ")
+    //         return { id, ...data };
+    //       });
+    //     })
+    // );
+    // console.log("communities loaded...")
+   }
+
+   load_my_communities(){ //after user login, call this function
+    var user = firebase.auth().currentUser;
+    if(user == null){
+      return 
+    }
+    console.log(user.uid);
+    var uid=user.uid;
+    this.communityCollection = this.afs.collection<Community>('communities',ref => ref.where('memberIDList', 'array-contains', uid));
+    //this.cartCollection = this.afs.collection<Order>('cart',ref => ref.where('uid', '==', uid));
 
     this.communities = this.communityCollection.snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
             const data = a.payload.doc.data();
-            // console.log(data)
             const id = a.payload.doc.id;
-            // console.log("run after adding new node? ")
             return { id, ...data };
           });
         })
     );
-    console.log("communities loaded...")
-
-  
-   }
+    //this.orderName = "";
+    console.log("communities  loaded...")
+  }
 
     setUID(uid){
     this.uid=uid;
@@ -43,6 +63,10 @@ export class FirebaseService {
   
     getUserID(){
     return this.uid
+    }
+
+    getCommunities(){
+      return this.communities
     }
 
     
