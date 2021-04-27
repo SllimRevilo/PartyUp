@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
   }
 
   openCreateCommunityPage(){
-    this.router.navigate(["/add-comunity"]);
+    this.router.navigate(['add-community']);
   }
   
   test()

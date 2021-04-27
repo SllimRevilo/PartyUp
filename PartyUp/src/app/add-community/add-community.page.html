@@ -1,12 +1,20 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add Community</ion-title>
-    <ion-button slot="primary" (click)="logout()">
-      <ion-icon name="exit-outline">logout</ion-icon>
-    </ion-button>
+    <ion-title>Create Community</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
+  <form [formGroup]="add_community_form" (submit)="createCommunity(add_community_form.value)">
+    <ion-item>
+      <ion-label color="primary" position="floating">Name</ion-label>
+      <ion-input type="text" formControlName="title" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" position="floating">Description</ion-label>
+      <ion-input type="text" formControlName="description" required></ion-input>
+    </ion-item>
+    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!add_community_form.valid">Create</ion-button>
+  </form>
 
 </ion-content>
