@@ -1,12 +1,24 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Calendar</ion-title>
-    <ion-button slot="primary" (click)="logout()">
-      <ion-icon name="exit-outline">logout</ion-icon>
-    </ion-button>
+    <ion-buttons slot="primary">
+      <ion-button (click)="logout()">
+        <ion-icon name="exit-outline">logout</ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+  <calendar [eventSource]="eventSource"
+    [calendarMode]="calendar.mode"
+    [currentDate]="calendar.currentDate"
+    (onEventSelected)="onEventSelected($event)"
+    (onTitleChanged)="onViewTitleChanged($event)"
+    (onTimeSelected)="onTimeSelected($event)"
+    startHour="0"
+    endHour="24"
+    step ="30"
+    startingDayWeek="1">
+  </calendar>
 </ion-content>
