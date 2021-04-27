@@ -25,7 +25,7 @@ export class CalendarPage implements OnInit {
     desc: '',
     startTime: '',
     endTime: '',
-    community:'',
+    community: '',
     allDay: false
   };
  
@@ -80,11 +80,12 @@ export class CalendarPage implements OnInit {
  
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
-    this.resetEvent();
-
-    this.afs.collection("products").doc().update({
-
+    
+    console.log(this.event.community);
+    this.afs.collection("communities").doc(eventCopy.community).update({
+      events:this.eventSource
     })
+    this.resetEvent();
   }
 
    // Change current month/week/day
