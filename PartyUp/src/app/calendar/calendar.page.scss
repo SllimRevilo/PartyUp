@@ -1,0 +1,16 @@
+.no-scroll {
+    // overwrite inline styles
+--offset-bottom: auto!important;
+--overflow: hidden;
+overflow: auto;
+&::-webkit-scrollbar {
+  display: none;
+
+}
+}
+
+  ion-card-title {
+      font-size: medium;
+      margin-left: auto;
+      margin-right: auto;
+  }
