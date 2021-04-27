@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MonthViewComponent } from 'ionic2-calendar/monthview';
 
 @Component({
   selector: 'app-calendar',
@@ -8,6 +9,30 @@ import { Component, OnInit } from '@angular/core';
 export class CalendarPage implements OnInit {
 
   constructor() { }
+
+  eventSource =[];
+  calendar =
+  {
+    mode:'month',
+    currentDate: new Date()
+
+  }
+  onEventSelected()
+  {
+
+  }
+
+ 
+
+  onViewTitleChanged()
+  {
+
+  }
+
+  onTimeSelected()
+  {
+
+  }
 
   ngOnInit() {
   }
