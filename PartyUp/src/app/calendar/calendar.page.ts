@@ -75,7 +75,9 @@ export class CalendarPage implements OnInit {
     this.myCal.loadEvents();
     this.resetEvent();
 
- 
+    this.afs.collection("products").doc().update({
+
+    })
   }
 
    // Change current month/week/day

@@ -1,11 +1,10 @@
 export interface Community {
     cid?: any;
     name: string;
-    //price: number;
-    //category: string;
     description: string;
+    pic: string;
+    event: [];
     memberIDList: number[];
     modIDList: [];
     ownerIDList: [];
-    //src: string;
 }
