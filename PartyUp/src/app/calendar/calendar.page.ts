@@ -2,6 +2,10 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
+import { MonthViewComponent } from 'ionic2-calendar/monthview'
+import { WeekViewComponent } from 'ionic2-calendar/weekview'
+import { DayViewComponent } from 'ionic2-calendar/dayview'
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-calendar',
@@ -15,6 +19,7 @@ export class CalendarPage implements OnInit {
     desc: '',
     startTime: '',
     endTime: '',
+    community:'',
     allDay: false
   };
  
@@ -30,7 +35,7 @@ export class CalendarPage implements OnInit {
  
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
  
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,private afs: AngularFirestore) { }
  
   ngOnInit() {
     this.resetEvent();
@@ -42,6 +47,7 @@ export class CalendarPage implements OnInit {
       desc: '',
       startTime: new Date().toISOString(),
       endTime: new Date().toISOString(),
+      community:'',
       allDay: false
     };
   }
@@ -53,6 +59,7 @@ export class CalendarPage implements OnInit {
       startTime:  new Date(this.event.startTime),
       endTime: new Date(this.event.endTime),
       allDay: this.event.allDay,
+      community:this.event.community,
       desc: this.event.desc
     }
  
@@ -67,6 +74,8 @@ export class CalendarPage implements OnInit {
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
     this.resetEvent();
+
+ 
   }
 
    // Change current month/week/day
