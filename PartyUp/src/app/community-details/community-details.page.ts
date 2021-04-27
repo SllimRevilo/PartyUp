@@ -7,10 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommunityDetailsPage implements OnInit {
 
-  isPrivate: boolean = true;
-  isModerator: boolean = true;
-  isOwner: boolean = true;
-
+  pic;
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +16,6 @@ export class CommunityDetailsPage implements OnInit {
   test()
   {
     console.log("lul test");
-    console.log(this.isPrivate);
+    console.log(this.pic);
   }
 }

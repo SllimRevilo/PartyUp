@@ -13,8 +13,37 @@
 </ion-header>
 
 <ion-content>
-
-
-
-
+  <div class="center">
+    <h1>
+      Members:
+    </h1>
+    temp bs
+  </div>
+  <div class="center">
+    <h1>
+      Group Icon:
+    </h1>
+    <ion-item>
+      <ion-label>Toppings</ion-label>
+      <ion-select [(ngModel)]="this.pic" multiple="false" cancelText="Nah" okText="Okay!">
+        <ion-select-option value="bacon">Bacon</ion-select-option>
+        <ion-select-option value="olives">Black Olives</ion-select-option>
+        <ion-select-option value="xcheese">Extra Cheese</ion-select-option>
+        <ion-select-option value="peppers">Green Peppers</ion-select-option>
+        <ion-select-option value="mushrooms">Mushrooms</ion-select-option>
+        <ion-select-option value="onions">Onions</ion-select-option>
+        <ion-select-option value="pepperoni">Pepperoni</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div class="center">
+    <h1>
+      Group Description:
+    </h1>
+    <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >Manage Members</ion-button>
+    <ion-item lines="none">
+      <ion-label>Private Group</ion-label>
+      <ion-toggle [(ngModel)]="isPrivate" class="toggle"></ion-toggle>
+  </ion-item>
+  </div>
 </ion-content>
