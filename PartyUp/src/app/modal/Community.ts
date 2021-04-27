@@ -5,5 +5,7 @@ export interface Community {
     //category: string;
     description: string;
     memberIDList: number[];
+    modIDList: [];
+    ownerIDList: [];
     //src: string;
 }

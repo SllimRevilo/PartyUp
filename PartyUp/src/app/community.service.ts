@@ -16,7 +16,9 @@ export class CommunityService {
       name: title,
       description: description,
       cid: randomID,
-      memberIDList: [userID]
+      memberIDList: [userID],
+      modIDList: [userID],
+      ownerIDList: [userID]
     })
     .then((docRef) => {
       console.log("Document written with ID: ", docRef.id);

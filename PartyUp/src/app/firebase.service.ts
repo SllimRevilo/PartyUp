@@ -17,7 +17,7 @@ export class FirebaseService {
   uid='';
 
   constructor(private afs: AngularFirestore) {
-    this.communityCollection = this.afs.collection<Community>('items');
+    this.communityCollection = this.afs.collection<Community>('communities');
     // this.itemCollection = this.afs.collection<Note>('notes',ref => ref.where('uid', '==', 'large'));
 
     this.communities = this.communityCollection.snapshotChanges().pipe(

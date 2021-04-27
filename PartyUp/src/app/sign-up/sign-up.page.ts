@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./sign-up.page.scss'],
 })
 export class SignUpPage implements OnInit {
-  user= {email:"", password:"",type:""};
+  user= {email:"",password:"",username:""};
 
 constructor(public afAuth: AngularFireAuth,private router:Router) { }
 
@@ -21,15 +21,15 @@ ngOnInit() {
   console.log(email,password);
   //you need to activate the authentication (password email) service in firbase project
 
-  this.afAuth.createUserWithEmailAndPassword(email, password).then(user => {
+  this.afAuth.createUserWithEmailAndPassword(email,password).then(user => {
     // navigate to user profile
     console.log(user.user.email, user.user.uid);
 
     var db = firebase.firestore();
     db.collection("users").add({
                 'uid':user.user.uid,
+                'username':this.user.username
                 //'usertype': this.user.type
-              
           })
           .then(function(docRef) {
               console.log("usetype written with ID: ", docRef.id);
