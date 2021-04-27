@@ -21,6 +21,10 @@ const routes: Routes = [
         loadChildren: () => import('../add-community/add-community.module').then(m => m.AddCommunityPageModule)
       },
       {
+        path: 'tab4',
+        loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
@@ -29,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/tab4',
     pathMatch: 'full'
   }
 ];
