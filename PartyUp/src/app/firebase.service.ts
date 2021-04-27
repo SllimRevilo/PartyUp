@@ -12,7 +12,9 @@ import firebase from 'firebase/app';
 })
 export class FirebaseService {
   private communities: Observable<Community[]>;
+  private allCommunities: Observable<Community[]>;
   private communityCollection: AngularFirestoreCollection<Community>;
+  private communityCompleteCollection: AngularFirestoreCollection<Community>;
 
   uid='';
 
@@ -56,18 +58,40 @@ export class FirebaseService {
     console.log("communities  loaded...")
   }
 
-    setUID(uid){
+  load_all_communities(){
+    var user = firebase.auth().currentUser;
+    if(user == null){
+      return 
+    }
+    this.communityCompleteCollection = this.afs.collection<Community>('communities');
+    this.allCommunities = this.communityCompleteCollection.snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+    );
+    console.log("ALL communities  loaded...")
+  }
+
+  setUID(uid){
     this.uid=uid;
     console.log(this.uid);
-    }
+  }
   
-    getUserID(){
+  getUserID(){
     return this.uid
-    }
+  }
 
-    getCommunities(){
+  getMyCommunities(){
       return this.communities
-    }
+  }
+
+  getAllCommunities(){
+    return this.allCommunities
+}
 
     
 }

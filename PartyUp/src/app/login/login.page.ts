@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
       //navigate to user profile
       console.log(user.user.email, user.user.uid);
       this.fbService.load_my_communities()
+      this.fbService.load_all_communities();
   
       var user1 = firebase.auth().currentUser;
       console.log(user1.uid)

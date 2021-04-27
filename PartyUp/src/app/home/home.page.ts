@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
     public angularFire: AngularFireAuth) { }
 
   ngOnInit() {
-    this.communities = this.fbService.getCommunities();
+    this.communities = this.fbService.getMyCommunities();
   }
 
   logout()
