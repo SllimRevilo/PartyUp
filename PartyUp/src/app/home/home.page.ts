@@ -6,6 +6,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { Router,ActivatedRoute } from '@angular/router';
 import { FirebaseService } from '../firebase.service';
+import { Community } from '../modal/Community';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +16,8 @@ import { FirebaseService } from '../firebase.service';
 })
 export class HomePage implements OnInit {
 
+  private communities: Observable<Community[]>;
+
   constructor(public firebase: AngularFirestore,
     private router: Router,
     public communityService: CommunityService,
@@ -21,6 +25,7 @@ export class HomePage implements OnInit {
     public angularFire: AngularFireAuth) { }
 
   ngOnInit() {
+    this.communities = this.fbService.getCommunities();
   }
 
   logout()

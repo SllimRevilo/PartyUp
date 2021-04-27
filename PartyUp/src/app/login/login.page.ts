@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
     this.afAuth.signInWithEmailAndPassword(email, password).then(user => {
       //navigate to user profile
       console.log(user.user.email, user.user.uid);
-      //this.fbService.load_my_orders();
+      this.fbService.load_my_communities()
   
       var user1 = firebase.auth().currentUser;
       console.log(user1.uid)
@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
       // fbService
       var db = firebase.firestore();
       var self=this;
-      db.collection("usertype").where("uid", "==", user1.uid)
+      db.collection("users").where("uid", "==", user1.uid)
             .get()
             .then(function(querySnapshot) {
                 querySnapshot.forEach(function(doc) {
