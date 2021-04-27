@@ -9,14 +9,14 @@ export class CommunityService {
 
   constructor(public firebase: AngularFirestore) { }
 
-  createCommunity(title,description) {
+  createCommunity(title,description,userID) {
     let randomID = Math.random().toString(36).substr(2,5);
     var db=this.firebase;
     db.collection("communities").add({
       name: title,
       description: description,
       cid: randomID,
-      memberIDList: []
+      memberIDList: [userID]
     })
     .then((docRef) => {
       console.log("Document written with ID: ", docRef.id);

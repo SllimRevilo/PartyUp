@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormControl, FormGroup,ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FirebaseService } from '../firebase.service';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import { CommunityService } from '../community.service';
@@ -17,7 +18,8 @@ export class AddCommunityPage implements OnInit {
 
   constructor(private router: Router,
     public formBuilder: FormBuilder,
-    public communityService: CommunityService,) { }
+    public fbService: FirebaseService,
+    public communityService: CommunityService) { }
 
   ngOnInit() {
     this.add_community_form = this.formBuilder.group({
@@ -28,7 +30,7 @@ export class AddCommunityPage implements OnInit {
 
   createCommunity(value){
     console.log(value.title)
-    this.communityService.createCommunity(value.title,value.description)
+    this.communityService.createCommunity(value.title,value.description,this.fbService.getUserID())
     this.add_community_form.reset()
     this.goBack();
   }
