@@ -1,23 +1,41 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Create Community</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+    <ion-buttons slot="primary">
+      <ion-button (click)="logout()">
+        <ion-icon name="exit-outline">logout</ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
   <form [formGroup]="add_community_form" (submit)="createCommunity(add_community_form.value)">
+  <div class="center">
     <ion-item>
-      <ion-label color="primary" position="floating">Name</ion-label>
-      <ion-input type="text" formControlName="title" required></ion-input>
+      <ion-label position="stacked">Community Name</ion-label>
+      <ion-input type="text" formControlName="name" required></ion-input>
     </ion-item>
+    </div>
+  <div class="center">
     <ion-item>
-      <ion-label color="primary" position="floating">Description</ion-label>
-      <ion-input type="text" formControlName="description" required></ion-input>
+      <ion-label position="stacked">Icons</ion-label>
+      <ion-select formControlName="pic" multiple="false" cancelText="Cancel" okText="Confirm" required>
+        <ion-select-option value="star">Star</ion-select-option>
+        <ion-select-option value="sword">Sword</ion-select-option>
+        <ion-select-option value="shield">Shield</ion-select-option>
+      </ion-select>
     </ion-item>
-    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!add_community_form.valid">Create</ion-button>
-  </form>
+  </div>
+
+  <div class="center">
+
+    <ion-item lines="none">
+      <ion-label position="stacked">Description</ion-label>
+      <ion-textarea formControlName="description" maxlength="150" rows="6" cols="20" placeholder="placeholder text is here lul (150 characters max)" required></ion-textarea>
+    </ion-item>
+  </div>
+  <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!add_community_form.valid">Create</ion-button>
+</form>
 
 </ion-content>

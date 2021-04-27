@@ -14,7 +14,11 @@ import { CommunityService } from '../community.service';
 export class AddCommunityPage implements OnInit {
 
   add_community_form: FormGroup;
-  community = {title:"",description:""}
+  community = {name:"",description:"", pic:""}
+
+  private description: string ="";
+  private pic: string ="";
+  private name: string ="";
 
   constructor(private router: Router,
     public formBuilder: FormBuilder,
@@ -23,14 +27,15 @@ export class AddCommunityPage implements OnInit {
 
   ngOnInit() {
     this.add_community_form = this.formBuilder.group({
-      title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required)
+      name: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
+      pic: new FormControl('',Validators.required)
     });
   }
 
   createCommunity(value){
-    console.log(value.title)
-    this.communityService.createCommunity(value.title,value.description,this.fbService.getUserID())
+    console.log(value.name)
+    this.communityService.createCommunity(value.name,value.description,this.fbService.getUserID())
     this.add_community_form.reset()
     this.goBack();
   }
