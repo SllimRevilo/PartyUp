@@ -6,6 +6,10 @@ import { MonthViewComponent } from 'ionic2-calendar/monthview'
 import { WeekViewComponent } from 'ionic2-calendar/weekview'
 import { DayViewComponent } from 'ionic2-calendar/dayview'
 import { AngularFirestore } from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import { CommunityService } from '../community.service';
+import { Community } from '../modal/Community';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-calendar',
@@ -13,6 +17,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
+
+  private communities: Observable<Community[]>;
 
   event = {
     title: '',
@@ -35,9 +41,10 @@ export class CalendarPage implements OnInit {
  
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
  
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,private afs: AngularFirestore) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,private afs: AngularFirestore,public fbService: FirebaseService) { }
  
   ngOnInit() {
+    this.communities = this.fbService.getMyCommunities();
     this.resetEvent();
   }
  
