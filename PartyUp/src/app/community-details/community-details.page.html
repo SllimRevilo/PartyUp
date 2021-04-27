@@ -14,30 +14,7 @@
 
 <ion-content>
 
-  <div class="center">
-    <h1>
-      User Actions:
-    </h1>
-    <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >View Community Calendar</ion-button>
-    <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >Join a Group</ion-button>
-  </div>
-  <div class="center" *ngIf="this.isModerator">
-    <h1>
-      Moderator Actions:
-    </h1>
-    <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >Schedule an Event</ion-button>
-    <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >Edit Community Details</ion-button>
-  </div>
-  <div class="center" *ngIf="this.isOwner">
-    <h1>
-      Owner Actions:
-    </h1>
-    <ion-button class="submit-btn" expand="block" type="submit" (click)="test()" >Manage Members</ion-button>
-    <ion-item lines="none">
-      <ion-label>Private Group</ion-label>
-      <ion-toggle [(ngModel)]="isPrivate" class="toggle"></ion-toggle>
-  </ion-item>
-  </div>
+
 
 
 </ion-content>

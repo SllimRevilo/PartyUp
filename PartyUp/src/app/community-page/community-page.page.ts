@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommunityPagePage implements OnInit {
 
+  isPrivate: boolean = true;
+  isModerator: boolean = true;
+  isOwner: boolean = true;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  test()
+  {
+    console.log("lul test");
+    console.log(this.isPrivate);
+  }
 }
