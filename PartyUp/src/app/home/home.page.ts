@@ -41,6 +41,10 @@ export class HomePage implements OnInit {
     this.router.navigate(["/community-page",community])
   }
 
+  openJoinCommunityPage(){
+    this.router.navigate(['join-community']);
+  }
+
   openCreateCommunityPage(){
     this.router.navigate(['add-community']);
   }
