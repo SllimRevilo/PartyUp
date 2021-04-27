@@ -15,7 +15,7 @@ export class FirebaseService {
 
   constructor(private afs: AngularFirestore) { }
 
-  setUID(uid){
+    setUID(uid){
     this.uid=uid;
     console.log(this.uid);
     }
@@ -23,4 +23,6 @@ export class FirebaseService {
     getUserID(){
     return this.uid
     }
+
+    
 }
