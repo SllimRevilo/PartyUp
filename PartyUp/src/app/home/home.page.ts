@@ -32,7 +32,12 @@ export class HomePage implements OnInit {
     this.router.navigate(['add-community']);
   }
   
-  test()
+  grouppg()
+  {
+    this.router.navigate(["community-page"]);
+  }
+  
+  commdies()
   {
     this.router.navigate(["community-details"]);
   }
