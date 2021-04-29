@@ -91,9 +91,7 @@ export class FirebaseService {
 
   getAllCommunities(){
     return this.allCommunities
-  }
-
-  
+}
 
     
 }

@@ -46,7 +46,4 @@ export class JoinCommunityPage implements OnInit {
     // })
   }
 
-  joinCommunity(user,aCommunity) {
-  }
-
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AddCommunityPage } from './add-community/add-community.page';
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +27,5 @@ export class CommunityService {
     .catch((error) => {
       console.error("Error adding document: ", error);
     });
-  }
-
-  addMember(user,community) {
-    var db=this.firebase;
-    let newArray: string[] = []//old memberIDList
-    db.collection("communities").doc(community).update({
-      memberIDList: newArray
-    })
   }
 }
