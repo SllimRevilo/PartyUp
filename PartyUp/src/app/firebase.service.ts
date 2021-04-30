@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import { Community } from './modal/Community';
+import { Event } from './modal/Event';
 //import {Item,Order} from '../modal/Item';
 import {AngularFirestore, AngularFirestoreCollection, DocumentReference} from '@angular/fire/firestore';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -15,6 +16,10 @@ export class FirebaseService {
   private allCommunities: Observable<Community[]>;
   private communityCollection: AngularFirestoreCollection<Community>;
   private communityCompleteCollection: AngularFirestoreCollection<Community>;
+  private events: Observable<Event[]>;
+  private allEvents: Observable<Event[]>;
+  private eventCollection: AngularFirestoreCollection<Event>;
+  private eventCompleteCollection: AngularFirestoreCollection<Event>;
 
   uid='';
 
@@ -76,6 +81,24 @@ export class FirebaseService {
     console.log("ALL communities  loaded...")
   }
 
+  load_all_events(){
+    var user = firebase.auth().currentUser;
+    if(user == null){
+      return 
+    }
+    this.eventCompleteCollection = this.afs.collection<Event>('events');
+    this.allEvents = this.eventCompleteCollection.snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+    );
+    console.log("ALL events  loaded...")
+  }
+
   setUID(uid){
     this.uid=uid;
     console.log(this.uid);
@@ -91,6 +114,10 @@ export class FirebaseService {
 
   getAllCommunities(){
     return this.allCommunities
+  }
+
+  getAllEvents(){
+    return this.allEvents;
   }
 
   

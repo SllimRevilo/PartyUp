@@ -31,6 +31,10 @@ export class CommunityPagePage implements OnInit {
   	)
   }
 
+  schedule ()
+  {
+    this.router.navigate(["/add-event",this.community]);
+  }
   test()
   {
     console.log("lul test");

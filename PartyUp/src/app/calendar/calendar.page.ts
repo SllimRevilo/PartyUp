@@ -1,15 +1,17 @@
 import { CalendarComponent } from 'ionic2-calendar';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-import { formatDate } from '@angular/common';
+import { formatDate, registerLocaleData } from '@angular/common';
 import { MonthViewComponent } from 'ionic2-calendar/monthview'
 import { WeekViewComponent } from 'ionic2-calendar/weekview'
 import { DayViewComponent } from 'ionic2-calendar/dayview'
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
 import { CommunityService } from '../community.service';
 import { Community } from '../modal/Community';
 import { FirebaseService } from '../firebase.service';
+import {map, take} from 'rxjs/operators';
+import { Event } from '../modal/Event';
 
 @Component({
   selector: 'app-calendar',
@@ -19,12 +21,15 @@ import { FirebaseService } from '../firebase.service';
 export class CalendarPage implements OnInit {
 
   private communities: Observable<Community[]>;
+  private communityCids = [];
+  private events: Observable<Event[]>
+  private eventCollection: AngularFirestoreCollection<Event>;
 
   event = {
     title: '',
     desc: '',
-    startTime: '',
-    endTime: '',
+    startTime: new Date(),
+    endTime: new Date(),
     community: '',
     allDay: false
   };
@@ -46,14 +51,44 @@ export class CalendarPage implements OnInit {
   ngOnInit() {
     this.communities = this.fbService.getMyCommunities();
     this.resetEvent();
+    this.events = this.fbService.getAllEvents();
+  }
+
+  ionViewWillEnter()
+  {
+    this.communities.subscribe(data => {
+      return data.forEach(index =>{
+        this.communityCids.push(index.cid);
+      })
+    })
+    this.events.subscribe(data => {
+      return data.forEach(index =>{ 
+        console.log("log is this thing lul: " + this.communityCids.includes(index.community))
+        if(this.communityCids.includes(index.community))
+        {
+         console.log(index.desc);
+          this.event.title = index.title;
+          this.event.desc = index.desc;
+          this.event.startTime = new Date(index.startTime);
+          this.event.endTime = new Date(index.endTime);
+          this.event.allDay = index.allDay;
+          this.event.community = index.community;
+          this.eventSource.push(this.event)
+          this.myCal.loadEvents();
+        }
+        this.resetEvent();
+      })
+    }
+
+    )
   }
  
   resetEvent() {
     this.event = {
       title: '',
       desc: '',
-      startTime: new Date().toISOString(),
-      endTime: new Date().toISOString(),
+      startTime: new Date(),
+      endTime: new Date(),
       community:'',
       allDay: false
     };
@@ -140,14 +175,17 @@ async onEventSelected(event) {
 // Time slot was clicked
 onTimeSelected(ev) {
   let selected = new Date(ev.selectedTime);
-  this.event.startTime = selected.toISOString();
+  this.event.startTime = selected;
   selected.setHours(selected.getHours() + 1);
-  this.event.endTime = (selected.toISOString());
+  this.event.endTime = (selected);
 }
 
 setCommunity(community)
 {
   this.event.community = community;
 }
+
+
+
 
 }
