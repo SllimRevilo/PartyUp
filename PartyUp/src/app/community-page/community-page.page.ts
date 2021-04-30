@@ -31,6 +31,10 @@ export class CommunityPagePage implements OnInit {
   	)
   }
 
+  viewCommunityDetails(community) {
+    this.router.navigate(["community-details",this.community])
+  }
+
   test()
   {
     console.log("lul test");

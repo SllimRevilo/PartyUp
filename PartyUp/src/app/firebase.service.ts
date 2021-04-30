@@ -54,7 +54,6 @@ export class FirebaseService {
           });
         })
     );
-    //this.orderName = "";
     console.log("communities  loaded...")
   }
 
@@ -93,7 +92,24 @@ export class FirebaseService {
     return this.allCommunities
   }
 
-  
+  getCommunityMembers(community) {
+    return community.memberIDList;
+  }
 
+  // getCommunityMemberNames(memberIDList) {
+  //   var db = firebase.firestore();
+  //   var memberNameList = [];
+  //   memberIDList.forEach(function (element) {
+  //     db.collection("users").where("uid", "==", memberIDList[element])
+  //         .get()
+  //         .then(function(querySnapshot) {
+  //           memberNameList.push(querySnapshot.username)
+  //             querySnapshot.forEach(function(data) {
+  //               memberNameList.push(data.username);
+  //             });
+  //           });
+  //         });
+  //   return memberNameList;
+  // }
     
 }

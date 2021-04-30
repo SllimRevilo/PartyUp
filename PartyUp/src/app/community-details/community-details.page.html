@@ -10,11 +10,15 @@
 </ion-header>
 
 <ion-content>
+  <h1>
+    Members:
+  </h1>
+  <ion-list>
+    <ion-item *ngFor="let member of (memberList | async)">
+      <ion-label>{{member}}</ion-label>
+    </ion-item>
+  </ion-list>
   <div class="center">
-    <h1>
-      Members:
-    </h1>
-    temp bs
   </div>
   <div class="center">
     <h1>
