@@ -88,10 +88,9 @@ export class CalendarPage implements OnInit {
  
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
-    
-    console.log("community is this: " +this.event.community);
+    console.log("community is this: " +this.event.community.toString());
     //const ourEvents = this.eventSource.map((obj)=>{return Object.assign({},obj)});
-    this.afs.collection("communities").doc("X0BHzPDONSVUuivGC8V5").update({
+    this.afs.collection("communities").doc(eventCopy.community).update({
       events: eventToStore
     })
     this.resetEvent();
