@@ -2,6 +2,14 @@ import { CalendarComponent } from 'ionic2-calendar';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
+import { MonthViewComponent } from 'ionic2-calendar/monthview'
+import { WeekViewComponent } from 'ionic2-calendar/weekview'
+import { DayViewComponent } from 'ionic2-calendar/dayview'
+import { AngularFirestore } from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import { CommunityService } from '../community.service';
+import { Community } from '../modal/Community';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-calendar',
@@ -10,11 +18,14 @@ import { formatDate } from '@angular/common';
 })
 export class CalendarPage implements OnInit {
 
+  private communities: Observable<Community[]>;
+
   event = {
     title: '',
     desc: '',
     startTime: '',
     endTime: '',
+    community: '',
     allDay: false
   };
  
@@ -30,9 +41,10 @@ export class CalendarPage implements OnInit {
  
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
  
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string,private afs: AngularFirestore,public fbService: FirebaseService) { }
  
   ngOnInit() {
+    this.communities = this.fbService.getMyCommunities();
     this.resetEvent();
   }
  
@@ -42,6 +54,7 @@ export class CalendarPage implements OnInit {
       desc: '',
       startTime: new Date().toISOString(),
       endTime: new Date().toISOString(),
+      community:'',
       allDay: false
     };
   }
@@ -53,6 +66,7 @@ export class CalendarPage implements OnInit {
       startTime:  new Date(this.event.startTime),
       endTime: new Date(this.event.endTime),
       allDay: this.event.allDay,
+      community:this.event.community,
       desc: this.event.desc
     }
  
@@ -63,9 +77,23 @@ export class CalendarPage implements OnInit {
       eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
+
+    let eventToStore = {
+      title: eventCopy.title,
+      startTime:  eventCopy.startTime.toISOString(),
+      endTime: eventCopy.endTime.toISOString(),
+      allDay: eventCopy.allDay,
+      desc: eventCopy.desc
+    }
  
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
+    
+    console.log("community is this: " +this.event.community);
+    //const ourEvents = this.eventSource.map((obj)=>{return Object.assign({},obj)});
+    this.afs.collection("communities").doc("X0BHzPDONSVUuivGC8V5").update({
+      events: eventToStore
+    })
     this.resetEvent();
   }
 
@@ -116,6 +144,11 @@ onTimeSelected(ev) {
   this.event.startTime = selected.toISOString();
   selected.setHours(selected.getHours() + 1);
   this.event.endTime = (selected.toISOString());
+}
+
+setCommunity(community)
+{
+  this.event.community = community;
 }
 
 }
