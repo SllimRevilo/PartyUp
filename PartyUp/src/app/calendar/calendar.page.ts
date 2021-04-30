@@ -56,6 +56,7 @@ export class CalendarPage implements OnInit {
 
   ionViewWillEnter()
   {
+    this.eventSource = [];
     this.communities.subscribe(data => {
       return data.forEach(index =>{
         this.communityCids.push(index.cid);
