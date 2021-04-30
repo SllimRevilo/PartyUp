@@ -34,7 +34,9 @@
       </ion-item>
       <ion-item>
         <ion-label position="stacked">Community event is for</ion-label>
-        <ion-select [(ngModel)]="event.community" multiple="false" cancelText="Cancel" okText="Confirm">
+        <!-- <ion-select [(ngModel)]="event.community" multiple="false" cancelText="Cancel" okText="Confirm"> -->
+          <ion-select (ionChange)=setCommunity($event) multiple="false" cancelText="Cancel" okText="Confirm">
+          <!-- <ion-select-option *ngFor="let community of (communities | async)" value="community">{{community.name}}</ion-select-option> -->
           <ion-select-option *ngFor="let community of (communities | async)" value="community">{{community.name}}</ion-select-option>
         </ion-select>
       </ion-item>

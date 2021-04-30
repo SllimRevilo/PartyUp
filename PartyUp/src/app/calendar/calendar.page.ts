@@ -77,13 +77,22 @@ export class CalendarPage implements OnInit {
       eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
       eventCopy.endTime = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth(), end.getUTCDate() + 1));
     }
+
+    let eventToStore = {
+      title: eventCopy.title,
+      startTime:  eventCopy.startTime.toISOString(),
+      endTime: eventCopy.endTime.toISOString(),
+      allDay: eventCopy.allDay,
+      desc: eventCopy.desc
+    }
  
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
     
-    console.log(this.event.community);
-    this.afs.collection("communities").doc(eventCopy.community).update({
-      events:this.eventSource
+    console.log("community is this: " +this.event.community);
+    //const ourEvents = this.eventSource.map((obj)=>{return Object.assign({},obj)});
+    this.afs.collection("communities").doc("X0BHzPDONSVUuivGC8V5").update({
+      events: eventToStore
     })
     this.resetEvent();
   }
@@ -135,6 +144,11 @@ onTimeSelected(ev) {
   this.event.startTime = selected.toISOString();
   selected.setHours(selected.getHours() + 1);
   this.event.endTime = (selected.toISOString());
+}
+
+setCommunity(community)
+{
+  this.event.community = community;
 }
 
 }
