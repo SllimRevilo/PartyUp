@@ -4,7 +4,7 @@ export interface Community {
     description: string;
     pic: string;
     event: [];
-    memberIDList: number[];
-    modIDList: [];
-    ownerIDList: [];
+    memberIDList: string[];
+    modIDList: string[];
+    ownerIDList: string[];
 }

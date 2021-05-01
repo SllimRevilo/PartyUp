@@ -13,7 +13,7 @@
   </h1>
   <ion-list>
     <ion-searchbar showcancelbutton="" (ionInput)="filterList($event)"></ion-searchbar>
-    <ion-item *ngFor="let community of (allCommunities | async)" (click)="joinCommunity(community)">
+    <ion-item *ngFor="let community of (allCommunities | async)" (click)="joinButton(community)">
       <ion-label>{{community.name}}</ion-label>
     </ion-item>
   </ion-list>

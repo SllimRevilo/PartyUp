@@ -43,6 +43,7 @@ export class CommunityDetailsPage implements OnInit {
     //this.memberNameList = this.fbService.getCommunityMemberNames(); // assign names to printable array
     //this.memberNameList[0] = this.testUser // "Cannot set property '0' of undefined" error
     //console.log(this.memberNameList[0].username);
+    //this.memberNameList = this.fbService.getCommunityMemberNames(this.community);
     // this.memberNameList = this.fbService.getCommunityMemberNames(this.memberIDList)
   }
 

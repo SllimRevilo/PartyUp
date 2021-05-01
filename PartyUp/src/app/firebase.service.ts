@@ -124,6 +124,11 @@ export class FirebaseService {
   getAllEvents() {
     return this.allEvents;
   }
+  
+  getCommunityCompleteCollection()
+  {
+    return this.communityCompleteCollection;
+  }
 
   loadCommunityMemberNames(memberIDList) {
     var db = firebase.firestore();
