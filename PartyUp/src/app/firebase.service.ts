@@ -234,10 +234,7 @@ export class FirebaseService {
   loadCommunityMemberNames(memberIDList) {
     var db = firebase.firestore();
     for (let i = 0; i < memberIDList.length; i++) {
-    //console.log(memberIDList[i])
-    this.userNameCollections = this.afs.collection<User>('users'), ref => ref.where("uid", "==", memberIDList[i]);
-    // console.log("userNameCollections:")
-    // console.log(this.userNameCollections)
+    this.userNameCollections = this.afs.collection<User>('users', ref => ref.where("uid", "==", memberIDList[i]));
     this.userNames = this.userNameCollections.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
