@@ -15,7 +15,7 @@ export class CommunityDetailsPage implements OnInit {
   community = null;
 
   memberIDList: [];
-  memberNameList: [];
+  memberNameList: any[];
 
   private pic:string="";
   private description: string ="";
@@ -33,6 +33,7 @@ export class CommunityDetailsPage implements OnInit {
     this.memberIDList = this.fbService.getCommunityMembers(this.community);
     console.log("Member ID list:");
     console.log(this.memberIDList);
+    this.memberNameList = this.fbService.getCommunityMemberNames(this.community);
     // this.memberNameList = this.fbService.getCommunityMemberNames(this.memberIDList)
   }
 
