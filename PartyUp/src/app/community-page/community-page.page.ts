@@ -4,6 +4,9 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CommunityService } from '../community.service';
 import { FirebaseService } from '../firebase.service';
+import { Community } from '../modal/Community';
+import {Observable} from 'rxjs';
+
 
 @Component({
   selector: 'app-community-page',
@@ -13,10 +16,11 @@ import { FirebaseService } from '../firebase.service';
 export class CommunityPagePage implements OnInit {
 
   community = null;
+  private ownedCommunities: Observable<Community[]>;
+  private moddedCommunities: Observable<Community[]>;
 
-  isPrivate: boolean = true;
-  isModerator: boolean = true;
-  isOwner: boolean = true;
+  isModerator: boolean ;
+  isOwner: boolean;
 
   constructor(public communityService:CommunityService,
     private router:Router,
@@ -24,13 +28,36 @@ export class CommunityPagePage implements OnInit {
     public fbService: FirebaseService) { }
 
   ngOnInit() {
+    this.ownedCommunities=this.fbService.getMyOwnedCommunities();
+    this.moddedCommunities=this.fbService.getMyModdedCommunities();
     this.route.params.subscribe(
   		param=>{
   			this.community = param;
   		}
   	)
+    this.moddedCommunities.subscribe(data => {
+      return data.forEach(index =>{
+        if(this.community.cid == index.cid)
+        {
+          this.isModerator = true;
+        }
+      })
+    })
+    this.ownedCommunities.subscribe(data => {
+      return data.forEach(index =>{
+        if(this.community.cid == index.cid)
+        {
+          this.isOwner = true;
+        }
+      })
+    })
+
   }
 
+  ionViewWillEnter()
+  {
+
+  }
   viewCommunityDetails(community) {
     this.router.navigate(["community-details",this.community])
   }
@@ -42,7 +69,6 @@ export class CommunityPagePage implements OnInit {
   test()
   {
     console.log("lul test");
-    console.log(this.isPrivate);
   }
   goToCommunityCalendar()
   {
