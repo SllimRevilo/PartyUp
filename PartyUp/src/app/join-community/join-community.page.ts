@@ -79,7 +79,8 @@ export class JoinCommunityPage implements OnInit {
             //console.log('Confirm Okay');
             this.joinCommunity(aCommunity);
           }
-        }
+        },
+        
       ]
     });
     await alert.present();
