@@ -233,8 +233,7 @@ export class FirebaseService {
 
   loadCommunityMemberNames(memberIDList) {
     var db = firebase.firestore();
-    for (let i = 0; i < memberIDList.length; i++) {
-    this.userNameCollections = this.afs.collection<User>('users', ref => ref.where("uid", "==", memberIDList[i]));
+    this.userNameCollections = this.afs.collection<User>('users', ref => ref.where("uid", "in", memberIDList));
     this.userNames = this.userNameCollections.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -243,8 +242,7 @@ export class FirebaseService {
           return { id, ...data };
         });
       })
-    );
-    }
+    )
     //console.log(this.userNames[0].username);
     // for (let i = 0; i < memberIDList.length; i++) {
     //   //memberNameList.push(db.collection("users").where("uid", "==", memberIDList[i]).get())
