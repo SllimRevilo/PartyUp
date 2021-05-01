@@ -74,4 +74,8 @@ export class CommunityPagePage implements OnInit {
   {
     this.router.navigate(["/community-calendar",this.community]);
   }
+  goToManageMembers()
+  {
+    this.router.navigate(["/manage-members",this.community]);
+  }
 }
