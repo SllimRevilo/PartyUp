@@ -35,7 +35,7 @@ export class CommunityPagePage implements OnInit {
     this.router.navigate(["community-details",this.community])
   }
 
-  schedule ()
+  schedule()
   {
     this.router.navigate(["/add-event",this.community]);
   }
@@ -43,5 +43,9 @@ export class CommunityPagePage implements OnInit {
   {
     console.log("lul test");
     console.log(this.isPrivate);
+  }
+  goToCommunityCalendar()
+  {
+    this.router.navigate(["/community-calendar",this.community]);
   }
 }

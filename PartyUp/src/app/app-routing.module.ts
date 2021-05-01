@@ -41,6 +41,10 @@ const routes: Routes = [
   },  {
     path: 'join-community',
     loadChildren: () => import('./join-community/join-community.module').then( m => m.JoinCommunityPageModule)
+  },
+  {
+    path: 'community-calendar',
+    loadChildren: () => import('./community-calendar/community-calendar.module').then( m => m.CommunityCalendarPageModule)
   }
 
 ];
