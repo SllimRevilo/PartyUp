@@ -3,7 +3,9 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { CommunityService } from '../community.service';
+import { User } from '../modal/User';
 import { FirebaseService } from '../firebase.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-community-details',
@@ -15,7 +17,8 @@ export class CommunityDetailsPage implements OnInit {
   community = null;
 
   memberIDList: [];
-  memberNameList: any[];
+  memberNameList: Observable<User[]>;
+  testUser: Observable<User>;
 
   private pic:string="";
   private description: string ="";
@@ -33,7 +36,13 @@ export class CommunityDetailsPage implements OnInit {
     this.memberIDList = this.fbService.getCommunityMembers(this.community);
     console.log("Member ID list:");
     console.log(this.memberIDList);
-    this.memberNameList = this.fbService.getCommunityMemberNames(this.community);
+    
+    // inspired by the order-list code from HW3
+    this.fbService.loadCommunityMemberNames(this.memberIDList); // load the names of current community
+    this.memberNameList = this.fbService.getCommunityMemberNames();
+    //this.memberNameList = this.fbService.getCommunityMemberNames(); // assign names to printable array
+    //this.memberNameList[0] = this.testUser // "Cannot set property '0' of undefined" error
+    //console.log(this.memberNameList[0].username);
     // this.memberNameList = this.fbService.getCommunityMemberNames(this.memberIDList)
   }
 

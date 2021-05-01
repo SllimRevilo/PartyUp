@@ -14,8 +14,8 @@
     Members:
   </h1>
   <ion-list>
-    <ion-item *ngFor="let member of (memberList | async)">
-      <ion-label>{{member}}</ion-label>
+    <ion-item *ngFor="let member of (memberNameList | async)">
+      <ion-label>{{member.username}}</ion-label>
     </ion-item>
   </ion-list>
   <div class="center">

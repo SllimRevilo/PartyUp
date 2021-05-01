@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Community } from './modal/Community';
+import { User } from './modal/User';
 import { Event } from './modal/Event';
 //import {Item,Order} from '../modal/Item';
 import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
@@ -20,6 +21,8 @@ export class FirebaseService {
   private allEvents: Observable<Event[]>;
   private eventCollection: AngularFirestoreCollection<Event>;
   private eventCompleteCollection: AngularFirestoreCollection<Event>;
+  private userNames: Observable<User[]>
+  private userCollections: AngularFirestoreCollection<User>;
 
   uid = '';
 
@@ -122,21 +125,39 @@ export class FirebaseService {
     return this.allEvents;
   }
 
-  getCommunityMemberNames(memberIDList) {
+  loadCommunityMemberNames(memberIDList) {
     var db = firebase.firestore();
-    var memberNameList = [];
     for (let i = 0; i < memberIDList.length; i++) {
-      //memberNameList.push(db.collection("users").where("uid", "==", memberIDList[i]).get())
-      db.collection("users").where("uid", "==", memberIDList[i])
-        .get()
-        .then(function (querySnapshot) {
-          //memberNameList.push(querySnapshot.username)
-          querySnapshot.forEach(function (data) {
-            memberNameList.push(data.username);
-          });
+    this.userCollections = this.afs.collection<User>('users'), ref => ref.where("uid", "==", memberIDList[i]);
+    console.log("userCollections:")
+    console.log(this.userCollections)
+    this.userNames = this.userCollections.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
         });
+      })
+    );
     }
-    return memberNameList;
+    // for (let i = 0; i < memberIDList.length; i++) {
+    //   //memberNameList.push(db.collection("users").where("uid", "==", memberIDList[i]).get())
+    //   db.collection("users").where("uid", "==", memberIDList[i])
+    //     .get()
+    //     .then(function (querySnapshot) {
+    //       //memberNameList.push(querySnapshot.username)
+    //       querySnapshot.forEach(function (data) {
+    //         memberNameList.push(data.);
+    //       });
+    //     });
+    // }
+    // return memberNameList;
+  }
+
+
+  getCommunityMemberNames() {
+    return this.userNames;
   }
 
 }
