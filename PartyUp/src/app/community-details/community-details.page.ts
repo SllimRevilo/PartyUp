@@ -36,27 +36,27 @@ export class CommunityDetailsPage implements OnInit {
 
   ngOnInit() {
     this.memberedCommunities=this.fbService.getMyMemberedCommunities();
-    // this.route.params.subscribe(
-  	// 	param=>{
-  	// 		this.community = param;
-  	// 	}
-  	// )
+    this.route.params.subscribe(
+  		param=>{
+  			this.community = param;
+  		}
+  	)
     this.memberedCommunities.subscribe(data => {
       return data.forEach(index =>{
         if(this.community.cid == index.cid)
         {
           this.isMember = true;
           this.memberIDList = index.memberIDList;
-          console.log("memberIDList: ")
-          console.log(this.memberIDList)
+          console.log("Member ID list:");
+          console.log(this.memberIDList);
+          this.fbService.loadCommunityMemberNames(this.memberIDList); // load the names of current community (but actually loads them all maybe???)
+          this.memberNameList = this.fbService.getCommunityMemberNames();
         }
       })
     })
     //this.fbService.load_all_users(); // load all users
     //if (this.community.member)
     // this.memberIDList = this.fbService.getCommunityMembers(this.community);
-    // console.log("Member ID list:");
-    // console.log(this.memberIDList);
     
     // inspired by the order-list code from HW3
 

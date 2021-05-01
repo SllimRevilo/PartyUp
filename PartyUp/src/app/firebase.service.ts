@@ -29,7 +29,7 @@ export class FirebaseService {
   private eventCollection: AngularFirestoreCollection<Event>;
   private eventCompleteCollection: AngularFirestoreCollection<Event>;
   private userNames: Observable<User[]>
-  private userCollections: AngularFirestoreCollection<User>;
+  private userNameCollections: AngularFirestoreCollection<User>;
 
   private users: Observable<User[]>
   private allUsersCollections: AngularFirestoreCollection<User>;
@@ -234,11 +234,11 @@ export class FirebaseService {
   loadCommunityMemberNames(memberIDList) {
     var db = firebase.firestore();
     for (let i = 0; i < memberIDList.length; i++) {
-      console.log(memberIDList[i])
-    this.userCollections = this.afs.collection<User>('users'), ref => ref.where("uid", "==", memberIDList[i]);
-    // console.log("userCollections:")
-    // console.log(this.userCollections)
-    this.userNames = this.userCollections.snapshotChanges().pipe(
+    //console.log(memberIDList[i])
+    this.userNameCollections = this.afs.collection<User>('users'), ref => ref.where("uid", "==", memberIDList[i]);
+    // console.log("userNameCollections:")
+    // console.log(this.userNameCollections)
+    this.userNames = this.userNameCollections.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
