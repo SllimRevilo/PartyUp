@@ -8,6 +8,7 @@ import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map, take } from 'rxjs/operators';
 import firebase from 'firebase/app';
+import { debug } from 'node:console';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,11 @@ export class FirebaseService {
   private userNames: Observable<User[]>
   private userCollections: AngularFirestoreCollection<User>;
 
+  private users: Observable<User[]>
+  private allUsersCollections: AngularFirestoreCollection<User>;
+
   uid = '';
+  memberIDList: []
 
   constructor(private afs: AngularFirestore) {
     // this.communityCollection = this.afs.collection<Community>('communities');
@@ -83,6 +88,20 @@ export class FirebaseService {
     console.log("ALL communities  loaded...")
   }
 
+  load_all_users() {
+    this.allUsersCollections = this.afs.collection<User>('users');
+    this.users = this.allUsersCollections.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+    console.log("ALL users  loaded...")
+  }
+
   load_all_events() {
     var user = firebase.auth().currentUser;
     if (user == null) {
@@ -121,10 +140,11 @@ export class FirebaseService {
   getCommunityMembers(community) {
     return community.memberIDList;
   }
+  
   getAllEvents() {
     return this.allEvents;
   }
-  
+
   getCommunityCompleteCollection()
   {
     return this.communityCompleteCollection;
@@ -133,9 +153,10 @@ export class FirebaseService {
   loadCommunityMemberNames(memberIDList) {
     var db = firebase.firestore();
     for (let i = 0; i < memberIDList.length; i++) {
+      console.log(memberIDList[i])
     this.userCollections = this.afs.collection<User>('users'), ref => ref.where("uid", "==", memberIDList[i]);
-    console.log("userCollections:")
-    console.log(this.userCollections)
+    // console.log("userCollections:")
+    // console.log(this.userCollections)
     this.userNames = this.userCollections.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -146,6 +167,7 @@ export class FirebaseService {
       })
     );
     }
+    //console.log(this.userNames[0].username);
     // for (let i = 0; i < memberIDList.length; i++) {
     //   //memberNameList.push(db.collection("users").where("uid", "==", memberIDList[i]).get())
     //   db.collection("users").where("uid", "==", memberIDList[i])
