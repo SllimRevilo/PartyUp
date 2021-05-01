@@ -20,6 +20,8 @@ export class ManageMembersPage implements OnInit {
   private memberedCommunities: Observable<Community[]>;
   memberIDList: string[];
   memberNameList: Observable<User[]>;
+  private allCommunities: Observable<Community[]>;
+
 
   constructor(public communityService:CommunityService,
     private router:Router,
@@ -30,6 +32,8 @@ export class ManageMembersPage implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.allCommunities = this.fbService.getAllCommunities();
+
     this.memberedCommunities=this.fbService.getMyMemberedCommunities();
     this.route.params.subscribe(
   		param=>{
@@ -50,7 +54,7 @@ export class ManageMembersPage implements OnInit {
     })
   }
 
-  joinButton(aUser)
+  editButton(aUser)
   {
     this.presentAlertConfirm(aUser);
   }
@@ -76,6 +80,12 @@ export class ManageMembersPage implements OnInit {
             this.makeMod(aUser);
           }
         },{
+          text: 'Remove mod',
+          handler: () => {
+            //console.log('Confirm Okay');
+            this.removeMod(aUser);
+          }
+        },{
           text: 'Kick user',
           handler: () => {
             //console.log('Confirm Okay');
@@ -91,21 +101,82 @@ export class ManageMembersPage implements OnInit {
   kickUser(aUser)
   {
     console.log("KICK lul")
+    console.log(aUser)
+    this.allCommunities.subscribe(data=> {
+      return data.forEach(index => {
+        if(this.community.cid == index.cid)
+        {
+          if(index.memberIDList.includes(aUser.uid))
+          {
+            console.log("I did this");
+            
+            const i = index.memberIDList.indexOf(aUser.uid, 0)
+            if(i>-1)
+            {
+              index.memberIDList.splice(i,1);
+            }
+
+            this.afs.collection("communities").doc(this.community.id).update({
+              memberIDList: index.memberIDList
+            })
+          }
+          else
+          {
+            return;
+          }
+          
+        }
+      })
+    })
   }
 
   makeMod(aUser)
   {
     console.log("mod lul")
-    this.memberedCommunities.subscribe(data => {
-      return data.forEach(index =>{
+    console.log(aUser)
+    this.allCommunities.subscribe(data=> {
+      return data.forEach(index => {
         if(this.community.cid == index.cid)
         {
-          //this.isMember = true;
-          this.memberIDList = index.memberIDList;
-          console.log("Member ID list:");
-          console.log(this.memberIDList);
-          this.fbService.loadCommunityMemberNames(this.memberIDList); // load the names of current community (but actually loads them all maybe???)
-          this.memberNameList = this.fbService.getCommunityMemberNames();
+          if(index.modIDList.includes(aUser.uid))
+          {
+            return;
+          }
+          console.log("I did this");
+          index.modIDList.push(aUser.uid)
+          this.afs.collection("communities").doc(this.community.id).update({
+            modIDList: index.modIDList
+          })
+        }
+      })
+    })
+  }
+
+  removeMod(aUser)
+  {
+    this.allCommunities.subscribe(data=> {
+      return data.forEach(index => {
+        if(this.community.cid == index.cid)
+        {
+          if(index.modIDList.includes(aUser.uid))
+          {
+            console.log("I did this");
+            
+            const i = index.modIDList.indexOf(aUser.uid, 0)
+            if(i>-1)
+            {
+              index.modIDList.splice(i,1);
+            }
+
+            this.afs.collection("communities").doc(this.community.id).update({
+              modIDList: index.modIDList
+            })
+          }
+          else
+          {
+            return;
+          }
+          
         }
       })
     })

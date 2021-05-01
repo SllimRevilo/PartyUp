@@ -1,12 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>manage members</ion-title>
+    <ion-title size="small">manage members</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <h1>
+    Your Members:
+  </h1>
   <ion-list>
-    <ion-item *ngFor="let member of (memberNameList | async)">
+    <ion-item *ngFor="let member of (memberNameList | async)" (click)="editButton(member)">
       <ion-label>{{member.username}}</ion-label>
     </ion-item>
   </ion-list>
