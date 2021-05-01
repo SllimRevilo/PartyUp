@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { CommunityService } from '../community.service';
 import { User } from '../modal/User';
 import { FirebaseService } from '../firebase.service';
 import {Observable} from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-community-details',
@@ -25,7 +26,8 @@ export class CommunityDetailsPage implements OnInit {
   constructor(public communityService:CommunityService,
     private router:Router,
     private route:ActivatedRoute,
-    public fbService: FirebaseService) { }
+    public fbService: FirebaseService,
+    private afs: AngularFirestore) { }
 
   ngOnInit() {
     this.route.params.subscribe(
@@ -52,5 +54,22 @@ export class CommunityDetailsPage implements OnInit {
     console.log("lul test");
     console.log(this.pic);
     console.log(this.description);
+  }
+  update()
+  {
+    console.log(this.community.id);
+    if(this.description != "")
+    {
+      this.afs.collection("communities").doc(this.community.id).update({
+        description: this.description
+      })
+    }
+    if(this.pic != "")
+    {
+      this.pic = "./assets/" + this.pic + ".png";
+      this.afs.collection("communities").doc(this.community.id).update({
+        pic: this.pic
+      })
+    }
   }
 }
