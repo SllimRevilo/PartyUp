@@ -17,6 +17,11 @@ import {Observable} from 'rxjs';
 export class HomePage implements OnInit {
 
   private communities: Observable<Community[]>;
+  private ownedCommunities: Observable<Community[]>;
+  private moddedCommunities: Observable<Community[]>;
+  moddedCommunityCids =[];
+  ownedCommunityCids =[];
+
   private src="./assets/party-hat.png";
 
   constructor(public firebase: AngularFirestore,
@@ -39,7 +44,8 @@ export class HomePage implements OnInit {
   }
 
   viewCommunity(community) {
-    this.router.navigate(["/community-page",community])
+    this.router.navigate(["/community-page",community]);
+
   }
 
   openJoinCommunityPage(){

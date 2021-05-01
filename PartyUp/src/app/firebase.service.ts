@@ -14,8 +14,12 @@ import firebase from 'firebase/app';
 })
 export class FirebaseService {
   private communities: Observable<Community[]>;
+  private moddedCommunities: Observable<Community[]>;
+  private ownedCommunities: Observable<Community[]>;
   private allCommunities: Observable<Community[]>;
   private communityCollection: AngularFirestoreCollection<Community>;
+  private communityModCollection: AngularFirestoreCollection<Community>;
+  private communityOwnedCollection: AngularFirestoreCollection<Community>;
   private communityCompleteCollection: AngularFirestoreCollection<Community>;
   private events: Observable<Event[]>;
   private allEvents: Observable<Event[]>;
@@ -41,6 +45,51 @@ export class FirebaseService {
     //     })
     // );
     // console.log("communities loaded...")
+  }
+  load_my_moderated_communities()
+  {
+    var user = firebase.auth().currentUser;
+    if (user == null) {
+      return
+    }
+    console.log(user.uid);
+    var uid = user.uid;
+    this.communityModCollection = this.afs.collection<Community>('communities', ref => ref.where('modIDList', 'array-contains', uid));
+    //this.cartCollection = this.afs.collection<Order>('cart',ref => ref.where('uid', '==', uid));
+
+    this.moddedCommunities = this.communityModCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+    console.log("modded communities  loaded...")
+  }
+
+  load_my_owned_communities()
+  {
+    var user = firebase.auth().currentUser;
+    if (user == null) {
+      return
+    }
+    console.log(user.uid);
+    var uid = user.uid;
+    this.communityOwnedCollection = this.afs.collection<Community>('communities', ref => ref.where('ownerIDList', 'array-contains', uid));
+    //this.cartCollection = this.afs.collection<Order>('cart',ref => ref.where('uid', '==', uid));
+
+    this.ownedCommunities = this.communityOwnedCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+    console.log("owned communities  loaded...")
   }
 
   load_my_communities() { //after user login, call this function
@@ -112,6 +161,12 @@ export class FirebaseService {
 
   getMyCommunities() {
     return this.communities
+  }
+  getMyModdedCommunities() {
+    return this.moddedCommunities
+  }
+  getMyOwnedCommunities() {
+    return this.ownedCommunities
   }
 
   getAllCommunities() {
