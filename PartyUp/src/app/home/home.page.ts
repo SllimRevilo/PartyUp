@@ -17,6 +17,7 @@ import {Observable} from 'rxjs';
 export class HomePage implements OnInit {
 
   private communities: Observable<Community[]>;
+  private src="./assets/party-hat.png";
 
   constructor(public firebase: AngularFirestore,
     private router: Router,

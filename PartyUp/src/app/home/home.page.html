@@ -15,11 +15,13 @@
   </h1>
   <ion-list>
     <ion-item *ngFor="let community of (communities | async)" (click)="viewCommunity(community)">
+      <ion-thumbnail slot="end">
+        <ion-img [src]="community.pic"></ion-img>
+      </ion-thumbnail>
       <ion-label>{{community.name}}</ion-label>
     </ion-item>
   </ion-list>
   <ion-button class="submit-btn" expand="block" type="submit" (click)="openJoinCommunityPage()" >Join a Community</ion-button>
   <ion-button class="submit-btn" expand="block" type="submit" (click)="grouppg()" >group page</ion-button>
-  <ion-button class="submit-btn" expand="block" type="submit" (click)="commdies()" >community deets</ion-button>
 
 </ion-content>

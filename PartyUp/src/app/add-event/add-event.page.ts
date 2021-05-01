@@ -52,6 +52,7 @@ export class AddEventPage implements OnInit {
       allDay: this.event.allDay,
       community: this.community.cid
     })
+    this.router.navigate(['tabs/tab1']);
   }
 
 }

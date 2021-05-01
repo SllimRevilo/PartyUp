@@ -19,7 +19,7 @@ export class CommunityService {
       name: title,
       description: description,
       cid: randomID,
-      pic: aPic,
+      pic: "./assets/" + aPic +".png",
       memberIDList: [userID],
       modIDList: [userID],
       ownerIDList: [userID]
