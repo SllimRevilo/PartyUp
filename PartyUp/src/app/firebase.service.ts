@@ -15,10 +15,12 @@ import { debug } from 'node:console';
 })
 export class FirebaseService {
   private communities: Observable<Community[]>;
+  private memberCommunities: Observable<Community[]>;
   private moddedCommunities: Observable<Community[]>;
   private ownedCommunities: Observable<Community[]>;
   private allCommunities: Observable<Community[]>;
   private communityCollection: AngularFirestoreCollection<Community>;
+  private communityMemberCollection: AngularFirestoreCollection<Community>;
   private communityModCollection: AngularFirestoreCollection<Community>;
   private communityOwnedCollection: AngularFirestoreCollection<Community>;
   private communityCompleteCollection: AngularFirestoreCollection<Community>;
@@ -33,7 +35,6 @@ export class FirebaseService {
   private allUsersCollections: AngularFirestoreCollection<User>;
 
   uid = '';
-  memberIDList: []
 
   constructor(private afs: AngularFirestore) {
     // this.communityCollection = this.afs.collection<Community>('communities');
@@ -51,6 +52,28 @@ export class FirebaseService {
     // );
     // console.log("communities loaded...")
   }
+
+  load_my_membered_communities()
+  {
+    var user = firebase.auth().currentUser;
+    if (user == null) {
+      return
+    }
+    console.log(user.uid);
+    var uid = user.uid;
+    this.communityMemberCollection = this.afs.collection<Community>('communities', ref => ref.where('memberIDList', 'array-contains', uid));
+    this.memberCommunities = this.communityMemberCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
+    console.log("membered communities  loaded...")
+  }
+
   load_my_moderated_communities()
   {
     var user = firebase.auth().currentUser;
@@ -180,6 +203,9 @@ export class FirebaseService {
 
   getMyCommunities() {
     return this.communities
+  }
+  getMyMemberedCommunities(){
+    return this.memberCommunities
   }
   getMyModdedCommunities() {
     return this.moddedCommunities
