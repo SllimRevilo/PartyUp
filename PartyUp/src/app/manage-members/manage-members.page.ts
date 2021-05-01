@@ -36,6 +36,18 @@ export class ManageMembersPage implements OnInit {
   			this.community = param;
   		}
   	)
+    this.memberedCommunities.subscribe(data => {
+      return data.forEach(index =>{
+        if(this.community.cid == index.cid)
+        {
+          this.memberIDList = index.memberIDList;
+          console.log("Member ID list:");
+          console.log(this.memberIDList);
+          this.fbService.loadCommunityMemberNames(this.memberIDList); // load the names of current community (but actually loads them all maybe???)
+          this.memberNameList = this.fbService.getCommunityMemberNames();
+        }
+      })
+    })
   }
 
   joinButton(aUser)
