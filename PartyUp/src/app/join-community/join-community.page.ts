@@ -64,6 +64,7 @@ export class JoinCommunityPage implements OnInit {
     
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
+      message: "Community Description: " +aCommunity.description,
       header: 'Are you sure you want to join this community',
       buttons: [
         {
