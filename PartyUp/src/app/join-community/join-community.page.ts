@@ -47,11 +47,6 @@ export class JoinCommunityPage implements OnInit {
     this.allCommunities = this.allCommunitiesBackup.pipe (
       map(items => 
        items.filter(currentCommunity => currentCommunity.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)) )
-    // this.allCommunities = this.allCommunitiesBackup.filter(currentCommunity => {
-    //   if (currentCommunity.name && searchTerm) {
-    //     return (currentCommunity.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
-    //   }
-    // })
   }
 
   joinButton(aCommunity)
@@ -60,7 +55,6 @@ export class JoinCommunityPage implements OnInit {
   }
 
   async presentAlertConfirm(aCommunity) {
-    //console.log("hello");
     
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -72,12 +66,10 @@ export class JoinCommunityPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            //console.log('Confirm Cancel: blahhhhh')
           }
         }, {
           text: 'Okay',
           handler: () => {
-            //console.log('Confirm Okay');
             this.joinCommunity(aCommunity);
           }
         },
@@ -88,7 +80,6 @@ export class JoinCommunityPage implements OnInit {
   }
 
   joinCommunity(aCommunity) {
-    console.log(aCommunity);
     
     this.allCommunities.subscribe(data=> {
       return data.forEach(index => {
@@ -98,7 +89,6 @@ export class JoinCommunityPage implements OnInit {
           {
             return;
           }
-          console.log("I did this");
           index.memberIDList.push(this.fbService.getUserID())
           this.afs.collection("communities").doc(aCommunity.id).update({
             memberIDList: index.memberIDList

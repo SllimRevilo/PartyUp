@@ -80,10 +80,8 @@ export class CommunityCalendarPage implements OnInit {
     })
     this.events.subscribe(data => {
       return data.forEach(index =>{ 
-        console.log("log is this thing lul: " + this.communityCids.includes(index.community))
         if(this.communityCids.includes(index.community))
         {
-         console.log(index.desc);
           this.event.title = index.title;
           this.event.desc = index.desc;
           this.event.startTime = new Date(index.startTime);
@@ -140,8 +138,6 @@ export class CommunityCalendarPage implements OnInit {
  
     this.eventSource.push(eventCopy);
     this.myCal.loadEvents();
-    console.log("community is this: " +this.event.community.toString());
-    //const ourEvents = this.eventSource.map((obj)=>{return Object.assign({},obj)});
     this.afs.collection("communities").doc(eventCopy.community).update({
       events: eventToStore
     })

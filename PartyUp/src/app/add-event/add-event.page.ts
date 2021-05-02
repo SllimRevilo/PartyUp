@@ -31,19 +31,12 @@ export class AddEventPage implements OnInit {
     this.route.params.subscribe(
   		param=>{
   			this.community = param;
-        console.log(param);
   		}
   	)
   }
 
   addEvent()
   {
-    console.log(this.event.title)
-    console.log(this.event.desc)
-    console.log(this.event.startTime)
-    console.log(this.event.endTime)
-    console.log(this.event.allDay)
-
     this.afs.collection("events").add({
       title: this.event.title,
       desc: this.event.desc,

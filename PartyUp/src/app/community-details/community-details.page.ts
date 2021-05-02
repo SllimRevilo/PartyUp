@@ -47,55 +47,15 @@ export class CommunityDetailsPage implements OnInit {
         {
           this.isMember = true;
           this.memberIDList = index.memberIDList;
-          console.log("Member ID list:");
-          console.log(this.memberIDList);
           this.fbService.loadCommunityMemberNames(this.memberIDList); // load the names of current community (but actually loads them all maybe???)
           this.memberNameList = this.fbService.getCommunityMemberNames();
         }
       })
     })
-    //this.fbService.load_all_users(); // load all users
-    //if (this.community.member)
-    // this.memberIDList = this.fbService.getCommunityMembers(this.community);
-    
-    // inspired by the order-list code from HW3
-
-    //this.fbService.loadCommunityMemberNames(this.memberIDList); // load the names of current community
-    //this.memberNameList = this.fbService.getCommunityMemberNames();
-
-    //this.memberNameList = this.fbService.getCommunityMemberNames(); // assign names to printable array
-    //this.memberNameList[0] = this.testUser // "Cannot set property '0' of undefined" error
-    //console.log(this.memberNameList[0].username);
-    //this.memberNameList = this.fbService.getCommunityMemberNames(this.community);
-    // this.memberNameList = this.fbService.getCommunityMemberNames(this.memberIDList)
   }
 
-  // getCommunityMembers(aCommunity) {
-  //   console.log(aCommunity);
-    
-  //   this.allUsers.subscribe(data=> {
-  //     return data.forEach(index => {
-  //       if(aCommunity.cid == index.uid)
-  //       {
-  //         console.log("I did this");
-  //         index.memberIDList.push(this.fbService.getUserID())
-  //         this.afs.collection("communities").doc(aCommunity.id).update({
-  //           memberIDList: index.memberIDList
-  //         })
-  //       }
-  //     })
-  //   })
-  // }
-
-  test()
-  {
-    console.log("lul test");
-    console.log(this.pic);
-    console.log(this.description);
-  }
   update()
   {
-    console.log(this.community.id);
     if(this.description != "")
     {
       this.afs.collection("communities").doc(this.community.id).update({

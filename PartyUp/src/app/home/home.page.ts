@@ -36,9 +36,7 @@ export class HomePage implements OnInit {
 
   logout()
   {
-    console.log("logging off...");
     let user = this.angularFire.currentUser;
-    console.log(user);
     this.fbService.uid='';
     this.router.navigate(["/"]);
   }

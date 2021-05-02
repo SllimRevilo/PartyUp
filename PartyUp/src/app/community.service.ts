@@ -25,24 +25,8 @@ export class CommunityService {
       ownerIDList: [userID]
     })
     .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
     })
     .catch((error) => {
-      console.error("Error adding document: ", error);
     });
   }
-
-  // addMember(user,community) {
-  //   var db=this.firebase;
-  //   let newArray: string[] = []//old memberIDList
-  //   db.collection("communities").doc(community).get().toPromise().then((querySnapshot: QuerySnapshot<DocumentData>) => {
-  //     querySnapshot.forEach((doc:any) => {
-  //       var data = doc.data();
-  //       console.log(doc.id, " => ", doc.data());
-  //       newArray = data.memberIDList;}
-  //     });
-  //   db.collection("communities").doc(community).update({
-  //     memberIDList: newArray
-  //   })
-  // }
 }
