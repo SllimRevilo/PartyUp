@@ -30,7 +30,6 @@ export class AddCommunityPage implements OnInit {
   }
 
   createCommunity(value){
-    console.log(value.name)
     this.communityService.createCommunity(value.name,value.description,value.pic,this.fbService.getUserID())
     this.add_community_form.reset()
     this.goBack();
