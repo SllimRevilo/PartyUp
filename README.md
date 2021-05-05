@@ -1,4 +1,5 @@
 # PartyUp
 Final Project for CSCE 546
 
-[![Video Demo](https://img.youtube.com/vi/bPocwhzMuSQ/maxresdefault.jpg)](https://youtu.be/bPocwhzMuSQ)
+Demo video:
+https://user-images.githubusercontent.com/27519133/117089042-531f8500-ad22-11eb-9d41-244ab1448e44.mp4
