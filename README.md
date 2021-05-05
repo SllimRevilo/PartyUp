@@ -1,5 +1,5 @@
 # PartyUp
-Final Project for CSCE 546
+PartyUp! is an app designed to get people playing games together. Many of us have very busy lives so PartyUp! lets you and your friends make an online community and easily sync up calendars showcasing game nights. 
 
 Demo video:
 
